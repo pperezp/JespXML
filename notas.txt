@@ -1,0 +1,13 @@
+En una Definicion de Tipo de Documento, se especifican los atributos que puede tener cada
+tipo de elemento, así como sus valores y tipos de valor posible.
+
+Entidades predefinidas
+----------------------
+
+Entidad | Caracter
+----------------
+&amp;       &
+&lt;        <
+&gt;        >
+&apos;      '
+&quot;      "
