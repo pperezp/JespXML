@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<biblioteca cantidadDeLibros='2'>
+    <libro paginas='100'>
+        <titulo>Libro Accion 1</titulo>
+        <autor>Autor ACTION</autor>
+        <año>1998</año>
+    </libro>
+    <libro paginas='200'>
+        <titulo>Libro Accion 2</titulo>
+        <autor>Autor ACTION</autor>
+    </libro>
+</biblioteca>
