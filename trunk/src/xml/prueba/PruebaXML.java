@@ -27,14 +27,14 @@ public class PruebaXML {
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, FileNotFoundException, TransformerException {
         
-//        File f = new File("src/xml/archivoXML/prueba.xml");
+        File f = new File("src/xml/archivoXML/prueba.xml");
         
         /*------------------------------CODIGO PARA LEER UN DOCUMENTOS XML CON DOM---------------------------------------*/
-//        Tag tagRaiz = DOM.procesarArchivoXMLDom(f);
-//        for(int i = 0; i<20; i++){
-//            System.out.println();
-//        }
-//        imprimirInformacion(tagRaiz);
+        Tag tagRaiz = DOM.procesarArchivoXMLDom(f);
+        for(int i = 0; i<20; i++){
+            System.out.println();
+        }
+        imprimirInformacion(tagRaiz);
         /*------------------------------CODIGO PARA LEER UN DOCUMENTOS XML CON DOM---------------------------------------*/
         
 //        /*------------------------------CODIGO PARA CREAR UN DOCUMENTOS XML CON DOM---------------------------------------*/
