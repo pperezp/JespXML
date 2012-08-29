@@ -45,6 +45,15 @@ public class DOM {
         return raiz.getTagsHijos().get(0);
     }
 
+    public static Tag procesarArchivoXMLDom(java.io.InputStream stream) throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
+        DocumentBuilder generador = fabrica.newDocumentBuilder();
+        Document doc = generador.parse(stream);
+        
+        procesarNodo(raiz, doc);
+        return raiz.getTagsHijos().get(0);
+    }
+    
     private static void procesarNodo(Tag root, Node nodo) {
         short tipoNodo = nodo.getNodeType();
         switch (tipoNodo) {
