@@ -28,6 +28,10 @@ public class Tag {
     public static int ATRIBUTO = 2;
     public static int TEXTO = 3;
     
+    public static enum CANTIDAD{
+        todosLosTags, primeraOcurrencia
+    }
+    
     public Tag(String nombre) {
         this.nombre = nombre;
         this.contenido = null;
@@ -121,14 +125,18 @@ public class Tag {
     public List<InstruccionDeProcesamiento> getInstruccionesDeProcesamiento() {
         return ips;
     }
-
-    public Tag getTagHijo(Tag tagHijo) {
+    
+    public List<Tag> getTagHijo(Tag.CANTIDAD cantidad, String nombreTag ) {
+        List<Tag> h = new ArrayList<>();
         for (Tag t : hijos) {
-            if (t.equals(tagHijo)) {
-                return t;
+            if (t.getNombre().equalsIgnoreCase(nombreTag)) {
+                h.add(t);
+                if(cantidad == Tag.CANTIDAD.primeraOcurrencia){
+                    return h;
+                }
             }
         }
-        return null;
+        return h;
     }
 
     public static Tag getTagHijoRecursivo(Tag root, Tag tagAbuscar) {
