@@ -22,10 +22,15 @@ import xml.analizador.dom.modelo.*;
  *
  * @author Patricio Pérez Pinto
  */
-public class DOM {
+public class JespXML extends File{
 
-    private static Tag raiz;
+    private Tag raiz;
+    
+    public JespXML(String pathname) {
+        super(pathname);
+    }
 
+    
     /**
      *
      * @param archivoXML Es el archivo XML a analizar
@@ -36,16 +41,16 @@ public class DOM {
      * @throws SAXException
      * @throws IOException
      */
-    public static Tag procesarArchivoXMLDom(File archivoXML) throws ParserConfigurationException, SAXException, IOException {
+    public Tag leerXML() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
-        Document doc = generador.parse(archivoXML);
+        Document doc = generador.parse(this);
         
         procesarNodo(raiz, doc);
         return raiz.getTagsHijos().get(0);
     }
 
-    public static Tag procesarArchivoXMLDom(java.io.InputStream stream) throws ParserConfigurationException, SAXException, IOException {
+    public Tag leerXML(java.io.InputStream stream) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
         Document doc = generador.parse(stream);
@@ -54,7 +59,7 @@ public class DOM {
         return raiz.getTagsHijos().get(0);
     }
     
-    private static void procesarNodo(Tag root, Node nodo) {
+    private void procesarNodo(Tag root, Node nodo) {
         short tipoNodo = nodo.getNodeType();
         switch (tipoNodo) {
             case Node.DOCUMENT_NODE: {
@@ -101,8 +106,9 @@ public class DOM {
                 Comment c = (Comment) nodo;
                 root.addComentario(new Comentario(c.getTextContent()));
                 break;
-            }default:{
-                System.out.println(tipoNodo);
+            }case Node.DOCUMENT_TYPE_NODE:{
+            }case Node.DOCUMENT_FRAGMENT_NODE:{
+            }case Node.NOTATION_NODE:{
             }
         }
 
@@ -110,7 +116,7 @@ public class DOM {
 
     /**
      *
-     * @param tagRaiz Es el tag raiz del arhivo DOM. el tag raiz, puede tener
+     * @param tagRaiz Es el tag raiz del arhivo JespXML. el tag raiz, puede tener
      * hijos Tag
      * @param nuevoArchivoXML Es el archivo nuevo que se generará
      * @throws ParserConfigurationException
@@ -118,7 +124,7 @@ public class DOM {
      * @throws FileNotFoundException
      * @throws TransformerException
      */
-    public static void crearArchivoXML(Tag tagRaiz, File nuevoArchivoXML) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public void escribirXML(Tag tagRaiz) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
         Document doc = generador.newDocument();
@@ -130,11 +136,11 @@ public class DOM {
         t.setOutputProperty(OutputKeys.INDENT, "yes");
         t.setOutputProperty(OutputKeys.METHOD, "XML");
         
-        t.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(nuevoArchivoXML)));
+        t.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(this)));
 
     }
 
-    private static void analizarAtributos(Node nodo, Tag tag) {
+    private void analizarAtributos(Node nodo, Tag tag) {
         if (nodo.hasAttributes()) {
             for (int j = 0; j < nodo.getAttributes().getLength(); j++) {
                 Node atributo = nodo.getAttributes().item(j);
@@ -143,7 +149,7 @@ public class DOM {
         }
     }
 
-    private static void crearArchivo(Element root, Tag tagRaiz, Document doc) {
+    private void crearArchivo(Element root, Tag tagRaiz, Document doc) {
         //escribiendo Instrucciones de Procesamiento
         if(tagRaiz.isIps()){
             for(InstruccionDeProcesamiento ip : tagRaiz.getInstruccionesDeProcesamiento()){
