@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resultados>
+    <item>
+        <Contrato>55481075</Contrato>
+        <Cliente>ROSA MARIA AVALOS OROZCO</Cliente>
+        <RFC>AAOR640823 </RFC>
+        <Calle>AND GILDARDO GOMEZ 3551-31 B</Calle>
+        <Colonia>SAN EUGENIO</Colonia>
+        <Ciudad>GUADALAJARA</Ciudad>
+        <CP>44740</CP>
+        <Entidad>JAL</Entidad>
+        <Nombre_Emp>AGENCIA MANPOWER / SCI PLANTA 16</Nombre_Emp>
+        <Calle_Emp>MARIANO OTERO 3429</Calle_Emp>
+        <Colonia_Emp>VERDE VALLE</Colonia_Emp>
+        <Ciudad_Emp>GUADALAJARA</Ciudad_Emp>
+        <Cp_Emp>44550</Cp_Emp>
+        <Entidad_Emp>JAL</Entidad_Emp>
+        <Tel_Persona>36552858</Tel_Persona>
+        <Tel_Dir>(33 ) 36552858</Tel_Dir>
+        <Tel_Empl>(33 ) 38808300</Tel_Empl>
+        <Extenxion_Empleo>5420 </Extenxion_Empleo>
+        <Teléfono_Celular></Teléfono_Celular>
+        <Teléfono_Reca></Teléfono_Reca>
+        <Nombre_Reca></Nombre_Reca>
+        <Teléfono_Ref1>36656549</Teléfono_Ref1>
+        <Nombre_Ref1>MARIA LUISA AVALOS OROZCO</Nombre_Ref1>
+        <Teléfono_Ref2>36651224</Teléfono_Ref2>
+        <Nombre_Ref2>JULIA MEZA </Nombre_Ref2>
+        <Metrics></Metrics>
+        <Capital_Insoluto>3,106</Capital_Insoluto>
+        <Dias_Mora>157</Dias_Mora>
+    </item>
+</resultados>
