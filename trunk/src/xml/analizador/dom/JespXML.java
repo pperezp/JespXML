@@ -4,10 +4,8 @@
  */
 package xml.analizador.dom;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,14 +20,26 @@ import xml.analizador.dom.modelo.*;
  *
  * @author Patricio Pérez Pinto
  */
-public class JespXML extends File{
+public class JespXML extends File {
 
     private Tag raiz;
+    private InputStream stream;
     
     public JespXML(String pathname) {
         super(pathname);
+        stream = null;
     }
 
+    public JespXML(URI uri) {
+        super(uri);
+        stream = null;
+    }
+
+
+    public JespXML(java.io.InputStream stream){
+        super("");
+        this.stream = stream;
+    }
     
     /**
      *
@@ -44,20 +54,24 @@ public class JespXML extends File{
     public Tag leerXML() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
-        Document doc = generador.parse(this);
-        
+        Document doc;
+        if(this.stream != null){
+            doc = generador.parse(stream);
+        }else{
+            doc = generador.parse(this);
+        }
         procesarNodo(raiz, doc);
         return raiz.getTagsHijos().get(0);
     }
 
-    public Tag leerXML(java.io.InputStream stream) throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
-        DocumentBuilder generador = fabrica.newDocumentBuilder();
-        Document doc = generador.parse(stream);
-        
-        procesarNodo(raiz, doc);
-        return raiz.getTagsHijos().get(0);
-    }
+//    public Tag leerXML() throws ParserConfigurationException, SAXException, IOException {
+//        DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
+//        DocumentBuilder generador = fabrica.newDocumentBuilder();
+//        Document doc = generador.parse(stream);
+//        
+//        procesarNodo(raiz, doc);
+//        return raiz.getTagsHijos().get(0);
+//    }
     
     private void procesarNodo(Tag root, Node nodo) {
         short tipoNodo = nodo.getNodeType();
