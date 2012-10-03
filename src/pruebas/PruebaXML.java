@@ -30,7 +30,7 @@ public class PruebaXML {
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, FileNotFoundException, TransformerException {
         
-        JespXML jxml = new JespXML(PruebaXML.class.getResource("pruebas/prueba.xml").getPath());
+        JespXML jxml = new JespXML("src/pruebas/p.xml");
         
         /*------------------------------CODIGO PARA LEER UN DOCUMENTOS XML CON JespXML---------------------------------------*/
         Tag tagRaiz = jxml.leerXML();
@@ -38,8 +38,8 @@ public class PruebaXML {
         //            System.out.println();
         //        }
         imprimirInformacion(tagRaiz);
-        List<Tag> tag = tagRaiz.getTagHijo(Tag.CANTIDAD.todosLosTags, "libro");
-        System.out.println(tag.size());
+//        List<Tag> tag = tagRaiz.getTagHijo(Tag.CANTIDAD.todosLosTags, "libro");
+//        System.out.println(tag.size());
 //        for(Tag t: tag){
 //            System.out.println(t);
 //        }
