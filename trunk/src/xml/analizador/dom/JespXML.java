@@ -13,6 +13,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import xml.analizador.dom.modelo.*;
 
@@ -24,21 +25,45 @@ public class JespXML extends File {
 
     private Tag raiz;
     private InputStream stream;
+    private Encoding encoding;
     
     public JespXML(String pathname) {
         super(pathname);
         stream = null;
+        encoding = null;
     }
 
     public JespXML(URI uri) {
         super(uri);
         stream = null;
+        encoding = null;
     }
 
 
     public JespXML(java.io.InputStream stream){
         super("");
         this.stream = stream;
+        encoding = null;
+    }
+    
+    public JespXML(String pathname, Encoding encoding) {
+        super(pathname);
+        stream = null;
+        this.encoding = encoding;
+        
+    }
+
+    public JespXML(URI uri, Encoding encoding) {
+        super(uri);
+        stream = null;
+        this.encoding = encoding;
+    }
+
+
+    public JespXML(java.io.InputStream stream, Encoding encoding){
+        super("");
+        this.stream = stream;
+        this.encoding = encoding;
     }
     
     /**
@@ -55,11 +80,29 @@ public class JespXML extends File {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
         Document doc;
-        if(this.stream != null){
-            doc = generador.parse(stream);
-        }else{
-            doc = generador.parse(this);
+        //si encoding es != null, quiere decir que hay que leer el archivo
+        //con una codificación dada. Por ejemplo "UTF-8"
+        if(this.encoding != null){
+            //si la lectura se va a realizar desde un stream
+            if(this.stream != null){
+                InputSource is = new InputSource(stream);
+                is.setEncoding(this.encoding.toString().replaceAll("_", "-"));
+                doc = generador.parse(is);
+            }else{//lectura desde archivo
+                FileInputStream fis = new FileInputStream(this);
+                InputSource is = new InputSource(fis);
+                is.setEncoding(this.encoding.toString().replaceAll("_", "-"));
+                doc = generador.parse(is);
+            }
+        }else{//sin un encoding especifico
+            //si la lectura se va a realizar desde un stream sin encoding
+            if(this.stream != null){
+                doc = generador.parse(stream);
+            }else{//lectura desde archivo sin encoding
+                doc = generador.parse(this);
+            }
         }
+        
         procesarNodo(raiz, doc);
         return raiz.getTagsHijos().get(0);
     }
@@ -138,6 +181,9 @@ public class JespXML extends File {
      * @throws FileNotFoundException
      * @throws TransformerException
      */
+    
+    
+    
     public void escribirXML(Tag tagRaiz) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
@@ -149,7 +195,11 @@ public class JespXML extends File {
 
         t.setOutputProperty(OutputKeys.INDENT, "yes");
         t.setOutputProperty(OutputKeys.METHOD, "XML");
-        
+      
+        if(encoding != null){
+            t.setOutputProperty(OutputKeys.ENCODING, encoding.toString().replace("_", "-"));
+        }
+       
         t.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(this)));
 
     }
