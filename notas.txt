@@ -11,3 +11,7 @@ Entidad | Caracter
 &gt;        >
 &apos;      '
 &quot;      "
+
+Tipos de encoding en la declaración XML
+
+ 	UTF-8, UTF-16, ISO-10646-UCS-2, ISO-10646-UCS-4, ISO-8859-1 to ISO-8859-9, ISO-2022-JP, Shift_JIS, EUC-JP
