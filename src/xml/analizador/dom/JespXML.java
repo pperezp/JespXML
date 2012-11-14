@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 import xml.analizador.dom.modelo.*;
 
 /**
- *
+ * Clase principal para leer y escribir archivos XML
  * @author Patricio Pérez Pinto
  */
 public class JespXML extends File {
@@ -27,12 +27,20 @@ public class JespXML extends File {
     private InputStream stream;
     private Encoding encoding;
     
+    /**
+     * 
+     * @param pathname la ruta del archivo xml que se desee procesar
+     */
     public JespXML(String pathname) {
         super(pathname);
         stream = null;
         encoding = null;
     }
 
+    /**
+     *
+     * @param uri Un objeto del tipo URI del archivo xml que se desee procesar 
+     */
     public JespXML(URI uri) {
         super(uri);
         stream = null;
@@ -40,12 +48,21 @@ public class JespXML extends File {
     }
 
 
+    /**
+     *
+     * @param stream un objeto InputStream del archivo xml que se desee procesar
+     */
     public JespXML(java.io.InputStream stream){
         super("");
         this.stream = stream;
         encoding = null;
     }
     
+    /**
+     *
+     * @param pathname la ruta del archivo xml que se desee procesar
+     * @param encoding el tipo de codificación encoding del archivo xml
+     */
     public JespXML(String pathname, Encoding encoding) {
         super(pathname);
         stream = null;
@@ -53,6 +70,12 @@ public class JespXML extends File {
         
     }
 
+    /**
+     *
+     * @param uri Un objeto del tipo URI del archivo xml que se desee procesar 
+     * @param encoding el tipo de codificación encoding del archivo xml
+     * @see Encoding
+     */
     public JespXML(URI uri, Encoding encoding) {
         super(uri);
         stream = null;
@@ -60,6 +83,11 @@ public class JespXML extends File {
     }
 
 
+    /**
+     *
+     * @param stream un objeto InputStream del archivo xml que se desee procesar
+     * @param encoding el tipo de codificación encoding del archivo xml
+     */
     public JespXML(java.io.InputStream stream, Encoding encoding){
         super("");
         this.stream = stream;
@@ -68,13 +96,33 @@ public class JespXML extends File {
     
     /**
      *
-     * @param archivoXML Es el archivo XML a analizar
-     * @see xml.modelo.Tag
-     * @see xml.modelo.ArchivoXML
-     * @return el Tag raiz del documento
+     * @param archivoXML El archivo xml a procesar
+     */
+    public JespXML(File archivoXML){
+        super(archivoXML.getPath());
+        stream = null;
+        encoding = null;
+    }
+    
+    /**
+     *
+     * @param archivoXML el archivo xml a procesar
+     * @param encoding el tipo de codificación encoding del archivo xml
+     */
+    public JespXML(File archivoXML, Encoding encoding){
+        super(archivoXML.getPath());
+        stream = null;
+        this.encoding = encoding;
+    }
+    
+    /**
+     * Permite leer un archivo XML
+     * @see Tag
+     * @return El tag raiz del documento xml. Este tag contiene a todos los
+     * demás tags hijos
      * @throws ParserConfigurationException
      * @throws SAXException
-     * @throws IOException
+     * @throws IOException 
      */
     public Tag leerXML() throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
@@ -175,7 +223,6 @@ public class JespXML extends File {
      *
      * @param tagRaiz Es el tag raiz del arhivo JespXML. el tag raiz, puede tener
      * hijos Tag
-     * @param nuevoArchivoXML Es el archivo nuevo que se generará
      * @throws ParserConfigurationException
      * @throws TransformerConfigurationException
      * @throws FileNotFoundException
@@ -183,7 +230,16 @@ public class JespXML extends File {
      */
     
     
-    
+    /**
+     * Método para crear un archivo XML a partir de un Tag raiz
+     * @param tagRaiz el tag raiz que se creará como xml. Este tag
+     * puede contener más tags hijos
+     * @see Tag
+     * @throws ParserConfigurationException
+     * @throws TransformerConfigurationException
+     * @throws FileNotFoundException
+     * @throws TransformerException 
+     */
     public void escribirXML(Tag tagRaiz) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
@@ -215,7 +271,7 @@ public class JespXML extends File {
 
     private void crearArchivo(Element root, Tag tagRaiz, Document doc) {
         //escribiendo Instrucciones de Procesamiento
-        if(tagRaiz.isIps()){
+        if(tagRaiz.isinstruccionesDeProcesamiento()){
             for(InstruccionDeProcesamiento ip : tagRaiz.getInstruccionesDeProcesamiento()){
                 ProcessingInstruction insPro = doc.createProcessingInstruction(ip.getTarget(), ip.getData());
                 root.appendChild(insPro);
