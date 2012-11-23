@@ -4,6 +4,8 @@
  */
 package xml.analizador.dom.modelo;
 
+import java.util.Objects;
+
 /**
  * Clase para construir un Atributo. Un atributo en XML es una propiedad en un Tag determinado.
  * Ejemplo: <tag atributo="valor"></tag>
@@ -68,5 +70,24 @@ public class Atributo {
     @Override
     public String toString() {
         return this.nombre + "='" + this.valor + "'";
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Atributo){
+            Atributo a = (Atributo)o;
+            if(this.getNombre().equalsIgnoreCase(a.getNombre()) && this.getValor().equalsIgnoreCase(a.getValor())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.nombre);
+        hash = 23 * hash + Objects.hashCode(this.valor);
+        return hash;
     }
 }

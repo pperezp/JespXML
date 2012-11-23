@@ -50,7 +50,7 @@ public class Tag {
      * de rescatar hijos.
      * 
      */
-    public static enum CANTIDAD{
+    public static enum Cantidad{
         /**
          *
          */
@@ -249,14 +249,14 @@ public class Tag {
      * @return Puede obtener todos los tags que coincidan con el nombreTag o solo 
      * obtener la primera ocurrencia, o sea una lista con un solo hijo Tag
      * 
-     * @see CANTIDAD
+     * @see Cantidad
      */
-    public List<Tag> getTagHijo(String nombreTag, Tag.CANTIDAD cantidad) {
+    public List<Tag> getTagHijo(String nombreTag, Tag.Cantidad cantidad) {
         List<Tag> h = new ArrayList<>();
         for (Tag t : hijos) {
             if (t.getNombre().equalsIgnoreCase(nombreTag)) {
                 h.add(t);
-                if(cantidad == Tag.CANTIDAD.primeraOcurrencia){
+                if(cantidad == Tag.Cantidad.primeraOcurrencia){
                     return h;
                 }
             }
@@ -600,5 +600,39 @@ public class Tag {
      */
     public void addInstruccionDeProcesamiento(String target, String data){
         instruccionesDeProcesamiento.add(new InstruccionDeProcesamiento(target, data));
+    }
+    
+    /**
+     * 
+     * @param atributo el atributo guia para buscar el tag
+     * @return la primera ocurrencia que encuentre en tags hijos
+     */
+    public Tag getTagHijoByAtributo(Atributo atributo){
+        for(Tag t: this.getTagsHijos()){
+            for(Atributo atr : t.getAtributos()){
+                if(atributo.equals(atr)){
+                    return t;
+                }
+            }
+        }
+       
+        return null;
+    } 
+    
+    public List<Tag> getTagHijoByAtributo(Atributo atributo, Tag.Cantidad cantidad){
+        List<Tag> tags = new ArrayList();
+        
+        for(Tag t: this.getTagsHijos()){
+            for(Atributo atr : t.getAtributos()){
+                if(atributo.equals(atr)){
+                    tags.add(t);
+                    if(cantidad == Tag.Cantidad.primeraOcurrencia){
+                        return tags;
+                    }
+                }
+            }
+        }
+        
+        return tags;
     }
 }
