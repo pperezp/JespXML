@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ayuda>
+    <componente id="while">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="do while">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="if">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="if else">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="for">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="for x2">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="switch case">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="printf">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="scanf">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="getche">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="system cls">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="system pause">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="long">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="float">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="bool">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="int">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="double">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="char">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="short">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="variable">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="funcion">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="estructuras de datos">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+    <componente id="libreria">
+        <definicion></definicion>
+        <ejemplo></ejemplo>
+    </componente>
+</ayuda>
