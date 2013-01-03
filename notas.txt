@@ -14,4 +14,10 @@ Entidad | Caracter
 
 Tipos de encoding en la declaración XML
 
- 	UTF-8, UTF-16, ISO-10646-UCS-2, ISO-10646-UCS-4, ISO-8859-1 to ISO-8859-9, ISO-2022-JP, Shift_JIS, EUC-JP
+UTF-8, UTF-16, ISO-10646-UCS-2, ISO-10646-UCS-4, ISO-8859-1 to ISO-8859-9, ISO-2022-JP, Shift_JIS, EUC-JP
+
+Ideas nuevas
+------------
+-Crear un metodo en la clase Tag que sea de la siguiente forma:
+    t.getTagsHijosByName(String... nombres) y me retorne una lista con todos los
+    tags que coincidan con ese nombre

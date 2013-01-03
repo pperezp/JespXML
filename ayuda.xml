@@ -2,7 +2,9 @@
 
 <ayuda>
     <componente id="while">
-        <definicion></definicion>
+        <definicion>
+            El Bucle while o bucle mientras es una estructura de la mayoría de los lenguajes de programación estructurados cuyo propósito es repetir un bloque de código mientras una condición se mantenga verdadera.
+        </definicion>
         <ejemplo></ejemplo>
     </componente>
     <componente id="do while">
