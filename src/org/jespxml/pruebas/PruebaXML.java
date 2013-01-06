@@ -16,6 +16,7 @@ import org.jespxml.modelo.Comentario;
 import org.jespxml.modelo.InstruccionDeProcesamiento;
 import org.jespxml.modelo.Tag;
 import org.xml.sax.SAXException;
+import org.jespxml.excepciones.*;
 
 
 /**
@@ -33,13 +34,13 @@ public class PruebaXML {
      * @throws TransformerConfigurationException
      * @throws FileNotFoundException  
      */
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, FileNotFoundException, TransformerException, TagHijoNotFoundException {
         
             JespXML j = new JespXML("ayuda.xml");
             Tag raiz = j.leerXML();
 //        
         Tag t = raiz.getTagHijoByAtributo(new Atributo("id","while"));
-        System.out.println(t.getTagHijo("definicion", Tag.Cantidad.primeraOcurrencia).get(0));
+        System.out.println(t.getTagHijoByName("definicion", Tag.Cantidad.PRIMERA_OCURRENCIA).get(0));
         //        Tag raiz = new Tag("raiz");
         //        raiz.addAtributo("wea", "muol");
         //        j.escribirXML(raiz);
