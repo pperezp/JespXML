@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jespxml.excepciones.AtributoNotFoundException;
+import org.jespxml.excepciones.TagHijoNotFoundException;
 import org.jespxml.gui.CellRender;
 import org.jespxml.gui.DatosArbolGUI;
 
@@ -31,19 +33,19 @@ public class Tag {
     /**
      *
      */
-    public static int TAG = 0;
+    private static int TAG = 0;
     /**
      *
      */
-    public static int COMENTARIO = 1;
+    private static int COMENTARIO = 1;
     /**
      *
      */
-    public static int ATRIBUTO = 2;
+    private static int ATRIBUTO = 2;
     /**
      *
      */
-    public static int TEXTO = 3;
+    private static int TEXTO = 3;
     
     /**
      * Enumeracion para determinar la cantidad de tags que necesitas al momento
@@ -54,11 +56,11 @@ public class Tag {
         /**
          *
          */
-        todosLosTags,
+        TODOS_LOS_TAGS,
         /**
          *
          */
-        primeraOcurrencia
+        PRIMERA_OCURRENCIA
     }
     
     /**
@@ -244,24 +246,49 @@ public class Tag {
     
     /**
      * Obtiene un hijo. Lo obtienes en una lista de tags
-     * @param nombreTag el nombre del tag a buscar
+     * @param nombre el nombre del tag a buscar
      * @param cantidad la cantidad de hijos que quieres. 
      * @return Puede obtener todos los tags que coincidan con el nombreTag o solo 
      * obtener la primera ocurrencia, o sea una lista con un solo hijo Tag
      * 
      * @see Cantidad
      */
-    public List<Tag> getTagHijo(String nombreTag, Tag.Cantidad cantidad) {
-        List<Tag> h = new ArrayList<>();
+    public List<Tag> getTagHijoByName(String nombre, Tag.Cantidad cantidad) {
+        List<Tag> tagHijos=  new ArrayList<>();
         for (Tag t : hijos) {
-            if (t.getNombre().equalsIgnoreCase(nombreTag)) {
-                h.add(t);
-                if(cantidad == Tag.Cantidad.primeraOcurrencia){
-                    return h;
+            if (t.getNombre().equalsIgnoreCase(nombre)) {
+                tagHijos.add(t);
+                if(cantidad == Tag.Cantidad.PRIMERA_OCURRENCIA){
+                    return tagHijos;
                 }
             }
         }
-        return h;
+        return tagHijos;
+    }
+    
+    public Tag getTagHijoByName(String nombreTag) throws TagHijoNotFoundException{
+        List<Tag> tags = getTagHijoByName(nombreTag, Tag.Cantidad.PRIMERA_OCURRENCIA);
+        if(tags.isEmpty()){
+            throw new TagHijoNotFoundException("No se encuentra un tag con el nombre:  <"+nombreTag+">");
+        }else{
+            return tags.get(0);
+        }
+    }
+    
+    /**
+     * Método para buscar tags hijos, por varios nombres
+     * @param nombreTag nombres de los tags a buscar. Ej: ("libros", "autores");
+     * @return una lista con los tags encontrados
+     */
+    public List<Tag> getTagHijoByName(String... nombreTag) {
+        List<Tag> tags = new ArrayList<>();
+        for(String n : nombreTag){
+            for(Tag t: getTagHijoByName(n, Tag.Cantidad.TODOS_LOS_TAGS)){
+                tags.add(t);
+            }
+        }
+        
+        return tags;
     }
 
     /**
@@ -271,18 +298,18 @@ public class Tag {
      * @return el tag encontrado
      * @deprecated Deprecado porque necesita más análisis. No recuerdo porque lo programe
      */
-    public static Tag findTag(Tag root, Tag tagAbuscar) {
-        if(root.equals(tagAbuscar)){
-            return root;
-        }
-        for (Tag hijo : root.getTagsHijos()) {
-            Tag t = findTag(hijo, tagAbuscar);//wea transfuga xD cara e cuea
-            if(t != null){// si es distino de null, es porque lo encontro
-                return t;
-            }//y si es null, sigo buscando en el arbol
-        }
-        return null;
-    }
+//    public static Tag findTag(Tag root, Tag tagAbuscar) {
+//        if(root.equals(tagAbuscar)){
+//            return root;
+//        }
+//        for (Tag hijo : root.getTagsHijos()) {
+//            Tag t = findTag(hijo, tagAbuscar);//wea transfuga xD cara e cuea
+//            if(t != null){// si es distino de null, es porque lo encontro
+//                return t;
+//            }//y si es null, sigo buscando en el arbol
+//        }
+//        return null;
+//    }
 
     /**
      *
@@ -309,41 +336,46 @@ public class Tag {
      * Elimina un hijo por su nombre
      * @param nombre nombre del tag a eliminar
      */
-    public void eliminarTagHijoByName(String nombre) {
+    public boolean eliminarTagHijoByName(String nombre) {
         for (Tag t : hijos) {
             if (t.getNombre().equalsIgnoreCase(nombre)) {
                 hijos.remove(t);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     /**
      * Actualizar el valor de un atributo ya existente
      * @param nombre el nombre del atributo al cual se le va a cambiar su valor
      * @param valor el nuevo valor del atributo
+     * @return retorna true o false dependiendo si se acutliza el valor o no
      */
-    public void actualizarValorAtributo(String nombre, String valor) {
+    public boolean actualizarValorAtributo(String nombre, String valor) {
         for (Atributo a : this.atributos) {
             if (a.getNombre().equalsIgnoreCase(nombre)) {
                 a.setValor(valor);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     /**
      * Actualizar el valor de un atributo ya existente
      * @param nombre el nombre del atributo al cual se le va a cambiar su valor
      * @param valor el nuevo valor del atributo
+     * @return retorna true o false dependiendo si se actualiza el valor o no
      */
-    public void actualizarValorAtributo(String nombre, int valor) {
+    public boolean actualizarValorAtributo(String nombre, int valor) {
         for (Atributo a : this.atributos) {
             if (a.getNombre().equalsIgnoreCase(nombre)) {
                 a.setValor(Integer.toString(valor));
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     /**
@@ -352,15 +384,23 @@ public class Tag {
      * @return el valor del atributo especificado y si no se encuentra el atributo
      * retornará null
      */
-    public String getValorDeAtributo(String nombre) {
+    public String getValorDeAtributo(String nombre) throws AtributoNotFoundException {
         for (Atributo a : this.atributos) {
             if (a.getNombre().equalsIgnoreCase(nombre)) {
                 return a.getValor();
             }
         }
-        return null;
+        throw new AtributoNotFoundException("Atributo no encontrado. Nombre: "+nombre);
     }
     
+    /**
+     * 
+     * @param nombre se llamará al método toString de ese objeto
+     * @return 
+     */
+    public String getValorDeAtributo(Object nombre) throws AtributoNotFoundException {
+        return getValorDeAtributo(nombre.toString());
+    }
     /**
      * 
      * @return un objeto CData que contiene el valor
@@ -607,30 +647,26 @@ public class Tag {
      * @param atributo el atributo guia para buscar el tag
      * @return la primera ocurrencia que encuentre en tags hijos
      */
-    public Tag getTagHijoByAtributo(Atributo atributo){
-        for(Tag t: this.getTagsHijos()){
-            for(Atributo atr : t.getAtributos()){
-                if(atributo.equals(atr)){
-                    return t;
-                }
-            }
-        }
-       
-        return null;
+    public Tag getTagHijoByAtributo(Atributo atributo) throws TagHijoNotFoundException{
+        return getTagHijoByAtributo(atributo, Tag.Cantidad.PRIMERA_OCURRENCIA).get(0);
     } 
     
-    public List<Tag> getTagHijoByAtributo(Atributo atributo, Tag.Cantidad cantidad){
+    public List<Tag> getTagHijoByAtributo(Atributo atributo, Tag.Cantidad cantidad) throws TagHijoNotFoundException{
         List<Tag> tags = new ArrayList();
         
         for(Tag t: this.getTagsHijos()){
             for(Atributo atr : t.getAtributos()){
                 if(atributo.equals(atr)){
                     tags.add(t);
-                    if(cantidad == Tag.Cantidad.primeraOcurrencia){
+                    if(cantidad == Tag.Cantidad.PRIMERA_OCURRENCIA){
                         return tags;
                     }
                 }
             }
+        }
+        
+        if(tags.isEmpty()){
+            throw new TagHijoNotFoundException("No se encuentran tags que coincidan con el atributo: "+atributo);
         }
         
         return tags;
