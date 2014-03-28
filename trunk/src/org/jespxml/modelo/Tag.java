@@ -5,8 +5,13 @@
 package org.jespxml.modelo;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+/*
+ * se usa esto en vez de ArrayList, porque si intento
+ * borrar un elemento, lanza una ConcurrentModificationException
+ * 
+ */
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -33,19 +38,19 @@ public class Tag {
     /**
      *
      */
-    private static int TAG = 0;
+    public static int TAG = 0;
     /**
      *
      */
-    private static int COMENTARIO = 1;
+    public static int COMENTARIO = 1;
     /**
      *
      */
-    private static int ATRIBUTO = 2;
+    public static int ATRIBUTO = 2;
     /**
      *
      */
-    private static int TEXTO = 3;
+    public static int TEXTO = 3;
     
     /**
      * Enumeracion para determinar la cantidad de tags que necesitas al momento
@@ -71,10 +76,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = null;
         this.valorCdata = null;
-        atributos = new ArrayList<>();
-        hijos = new ArrayList<>();
-        comentarios = new ArrayList<>();
-        instruccionesDeProcesamiento = new ArrayList<>();
+        atributos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
+        comentarios = new CopyOnWriteArrayList<>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -86,10 +91,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = contenido;
         this.valorCdata = null;
-        atributos = new ArrayList<>();
-        hijos = new ArrayList<>();
-        comentarios = new ArrayList<>();
-        instruccionesDeProcesamiento = new ArrayList<>();
+        atributos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
+        comentarios = new CopyOnWriteArrayList<>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
 
     //constructor para CDATA
@@ -103,10 +108,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = null;
         this.valorCdata = contenido;
-        atributos = new ArrayList<>();
-        hijos = new ArrayList<>();
-        comentarios = new ArrayList<>();
-        instruccionesDeProcesamiento = new ArrayList<>();
+        atributos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
+        comentarios = new CopyOnWriteArrayList<>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
     
     /**
@@ -119,11 +124,11 @@ public class Tag {
      */
     public Tag(String nombre, CData contenido, Comentario comentario){
         this(nombre, contenido);
-        atributos = new ArrayList<>();
-        hijos = new ArrayList<>();
-        comentarios = new ArrayList<>();
+        atributos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
+        comentarios = new CopyOnWriteArrayList<>();
         comentarios.add(comentario);
-        instruccionesDeProcesamiento = new ArrayList<>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
     
     /**
@@ -135,11 +140,11 @@ public class Tag {
      */
     public Tag(String nombre, String contenido, Comentario comentario){
         this(nombre, contenido);
-        atributos = new ArrayList<>();
-        hijos = new ArrayList<>();
-        comentarios = new ArrayList<>();
+        atributos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
+        comentarios = new CopyOnWriteArrayList<>();
         comentarios.add(comentario);
-        instruccionesDeProcesamiento = new ArrayList<>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -254,7 +259,7 @@ public class Tag {
      * @see Cantidad
      */
     public List<Tag> getTagHijoByName(String nombre, Tag.Cantidad cantidad) {
-        List<Tag> tagHijos=  new ArrayList<>();
+        List<Tag> tagHijos=  new CopyOnWriteArrayList<>();
         for (Tag t : hijos) {
             if (t.getNombre().equalsIgnoreCase(nombre)) {
                 tagHijos.add(t);
@@ -281,7 +286,7 @@ public class Tag {
      * @return una lista con los tags encontrados
      */
     public List<Tag> getTagHijoByName(String... nombreTag) {
-        List<Tag> tags = new ArrayList<>();
+        List<Tag> tags = new CopyOnWriteArrayList<>();
         for(String n : nombreTag){
             for(Tag t: getTagHijoByName(n, Tag.Cantidad.TODOS_LOS_TAGS)){
                 tags.add(t);
@@ -329,7 +334,7 @@ public class Tag {
      * Elimina todos los hijos tag
      */
     public void eliminarTodosLosTagHijos() {
-        hijos = new ArrayList<>();
+        hijos = new CopyOnWriteArrayList<>();
     }
     
     /**
@@ -346,6 +351,21 @@ public class Tag {
         return false;
     }
 
+    /**
+     * Elimina el primer tag que coincida con ese atributo
+     * @param atr
+     * @return 
+     */
+    public void eliminarTagHijoByAtributo(Atributo atr) {
+        for (Tag t : hijos) {
+            for(Atributo a : t.atributos){
+                if(a.equals(atr)){
+                    hijos.remove(t);
+                    break;
+                }
+            }
+        }
+    }
     /**
      * Actualizar el valor de un atributo ya existente
      * @param nombre el nombre del atributo al cual se le va a cambiar su valor
@@ -652,7 +672,7 @@ public class Tag {
     } 
     
     public List<Tag> getTagHijoByAtributo(Atributo atributo, Tag.Cantidad cantidad) throws TagHijoNotFoundException{
-        List<Tag> tags = new ArrayList();
+        List<Tag> tags = new CopyOnWriteArrayList();
         
         for(Tag t: this.getTagsHijos()){
             for(Atributo atr : t.getAtributos()){

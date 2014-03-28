@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <!DOCTYPE biblioteca SYSTEM "prueba.dtd">
+<!DOCTYPE biblioteca SYSTEM "prueba.dtd">
 <biblioteca cantidadDeLibros='2'>
     <!-- Comentario-->
     <libro paginas='100'>
