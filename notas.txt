@@ -21,3 +21,5 @@ Ideas nuevas
 -Crear un metodo en la clase Tag que sea de la siguiente forma:
     t.getTagsHijosByName(String... nombres) y me retorne una lista con todos los
     tags que coincidan con ese nombre
+
+-crear un constructor para poder inicializar el xml con un doctype, para dtd u otra cosa
