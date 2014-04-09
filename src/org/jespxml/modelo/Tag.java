@@ -317,7 +317,7 @@ public class Tag {
 //    }
 
     /**
-     *
+     * 
      * @return una lista de todos los hijos de esta tag
      * @see Tag
      */
@@ -607,9 +607,9 @@ public class Tag {
      */
     public String getContenido() {
         if(this.contenido != null){
-            return contenido;
+            return contenido.trim();
         }else if(this.valorCdata != null){
-            return this.valorCdata.getValor();
+            return this.valorCdata.getValor().trim();
         }else{
             return "";
         }
