@@ -76,10 +76,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = null;
         this.valorCdata = null;
-        atributos = new CopyOnWriteArrayList<>();
-        hijos = new CopyOnWriteArrayList<>();
-        comentarios = new CopyOnWriteArrayList<>();
-        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
+        atributos = new CopyOnWriteArrayList<Atributo>();
+        hijos = new CopyOnWriteArrayList<Tag>();
+        comentarios = new CopyOnWriteArrayList<Comentario>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<InstruccionDeProcesamiento>();
     }
 
     /**
@@ -91,10 +91,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = contenido;
         this.valorCdata = null;
-        atributos = new CopyOnWriteArrayList<>();
-        hijos = new CopyOnWriteArrayList<>();
-        comentarios = new CopyOnWriteArrayList<>();
-        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
+        atributos = new CopyOnWriteArrayList<Atributo>();
+        hijos = new CopyOnWriteArrayList<Tag>();
+        comentarios = new CopyOnWriteArrayList<Comentario>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<InstruccionDeProcesamiento>();
     }
 
     //constructor para CDATA
@@ -108,10 +108,10 @@ public class Tag {
         this.nombre = nombre;
         this.contenido = null;
         this.valorCdata = contenido;
-        atributos = new CopyOnWriteArrayList<>();
-        hijos = new CopyOnWriteArrayList<>();
-        comentarios = new CopyOnWriteArrayList<>();
-        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
+        atributos = new CopyOnWriteArrayList<Atributo>();
+        hijos = new CopyOnWriteArrayList<Tag>();
+        comentarios = new CopyOnWriteArrayList<Comentario>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<InstruccionDeProcesamiento>();
     }
     
     /**
@@ -124,11 +124,11 @@ public class Tag {
      */
     public Tag(String nombre, CData contenido, Comentario comentario){
         this(nombre, contenido);
-        atributos = new CopyOnWriteArrayList<>();
-        hijos = new CopyOnWriteArrayList<>();
-        comentarios = new CopyOnWriteArrayList<>();
+        atributos = new CopyOnWriteArrayList<Atributo>();
+        hijos = new CopyOnWriteArrayList<Tag>();
+        comentarios = new CopyOnWriteArrayList<Comentario>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<InstruccionDeProcesamiento>();
         comentarios.add(comentario);
-        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
     }
     
     /**
@@ -140,11 +140,11 @@ public class Tag {
      */
     public Tag(String nombre, String contenido, Comentario comentario){
         this(nombre, contenido);
-        atributos = new CopyOnWriteArrayList<>();
-        hijos = new CopyOnWriteArrayList<>();
-        comentarios = new CopyOnWriteArrayList<>();
         comentarios.add(comentario);
-        instruccionesDeProcesamiento = new CopyOnWriteArrayList<>();
+        atributos = new CopyOnWriteArrayList<Atributo>();
+        hijos = new CopyOnWriteArrayList<Tag>();
+        comentarios = new CopyOnWriteArrayList<Comentario>();
+        instruccionesDeProcesamiento = new CopyOnWriteArrayList<InstruccionDeProcesamiento>();
     }
 
     /**
@@ -259,7 +259,7 @@ public class Tag {
      * @see Cantidad
      */
     public List<Tag> getTagHijoByName(String nombre, Tag.Cantidad cantidad) {
-        List<Tag> tagHijos=  new CopyOnWriteArrayList<>();
+        List<Tag> tagHijos=  new CopyOnWriteArrayList<Tag>();
         for (Tag t : hijos) {
             if (t.getNombre().equalsIgnoreCase(nombre)) {
                 tagHijos.add(t);
@@ -286,7 +286,7 @@ public class Tag {
      * @return una lista con los tags encontrados
      */
     public List<Tag> getTagHijoByName(String... nombreTag) {
-        List<Tag> tags = new CopyOnWriteArrayList<>();
+        List<Tag> tags = new CopyOnWriteArrayList<Tag>();
         for(String n : nombreTag){
             for(Tag t: getTagHijoByName(n, Tag.Cantidad.TODOS_LOS_TAGS)){
                 tags.add(t);
@@ -334,7 +334,7 @@ public class Tag {
      * Elimina todos los hijos tag
      */
     public void eliminarTodosLosTagHijos() {
-        hijos = new CopyOnWriteArrayList<>();
+        hijos = new CopyOnWriteArrayList<Tag>();
     }
     
     /**
