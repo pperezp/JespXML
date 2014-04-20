@@ -266,15 +266,10 @@ public class JespXML extends File {
         doc.appendChild(root);
         crearArchivo(root, tagRaiz, doc);
         
-        
-        
         Transformer t = TransformerFactory.newInstance().newTransformer();
-
         t.setOutputProperty(OutputKeys.INDENT, "yes");
         t.setOutputProperty(OutputKeys.METHOD, "XML");
-        /*Indentado*/
         t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        /*Indentado*/
         
         if (encoding != null) {
             t.setOutputProperty(OutputKeys.ENCODING, encoding.toString().replace("_", "-"));
