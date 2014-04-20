@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.jespxml;
 
 import java.io.*;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,6 +18,10 @@ import org.jespxml.modelo.Tag;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 /**
  * Clase principal para leer y escribir archivos XML
@@ -266,11 +265,17 @@ public class JespXML extends File {
         Element root = doc.createElement(tagRaiz.getNombre());
         doc.appendChild(root);
         crearArchivo(root, tagRaiz, doc);
+        
+        
+        
         Transformer t = TransformerFactory.newInstance().newTransformer();
 
         t.setOutputProperty(OutputKeys.INDENT, "yes");
         t.setOutputProperty(OutputKeys.METHOD, "XML");
-
+        /*Indentado*/
+        t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+        /*Indentado*/
+        
         if (encoding != null) {
             t.setOutputProperty(OutputKeys.ENCODING, encoding.toString().replace("_", "-"));
         }
@@ -366,8 +371,8 @@ public class JespXML extends File {
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, URI uri) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
-        JespXML a = new JespXML(uri);
+    public static void escribirXML(Tag tagRaiz, URL url) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException, IOException {
+        JespXML a = new JespXML(url);
         a.escribirXML(tagRaiz);
     }
 
@@ -403,5 +408,41 @@ public class JespXML extends File {
         JespXML a = new JespXML(archivoXML);
         a.setEncoding(encoding);
         a.escribirXML(tagRaiz);
+    }
+    
+    /**
+     * Para poder serializar ese objeto 
+     * la case debe tener la anotacion
+     * @XmlRootElement ubicado en 
+     * @see javax.xml.bind.annotation.XmlRootElement.
+     * La clase debe tener un constructor vacío.
+     * Los atributos que quieras serializar deben tener
+     * los metodos get o deben ser publicos
+     * 
+     * @param objeto el objeto a serializar
+     * @param clase la clase del objeto que quieres serializar
+     * @throws JAXBException
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public void escribir(Object objeto, Class clase) throws JAXBException, FileNotFoundException, IOException{
+        JAXBContext context = JAXBContext.newInstance(clase);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        FileOutputStream fos = new FileOutputStream(this);
+        marshaller.marshal(objeto, fos);
+        fos.close();
+    }
+    
+    /**
+     * 
+     * @param clase La clase del objeto que quieres desSerializar
+     * @return
+     * @throws JAXBException 
+     */
+    public Object leer(Class clase) throws JAXBException{
+        JAXBContext context = JAXBContext.newInstance(clase);
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        return unmarshaller.unmarshal(this);
     }
 }
