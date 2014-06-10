@@ -36,7 +36,6 @@ public class CellRender extends JLabel implements TreeCellRenderer{
      * @param colorFondo
      * @deprecated Use el constructor CellRender(DatosArbolGUI datos)
      * @see DatosArbolGUI
-     * @see CellRender#CellRender(xml.analizador.dom.modelo.gui.DatosArbolGUI) 
      */
     public CellRender(ImageIcon icono_tag, ImageIcon icono_comentario, ImageIcon icono_atributo, ImageIcon icono_texto, Color colorFondo){
         this.icono_atributo = icono_atributo;

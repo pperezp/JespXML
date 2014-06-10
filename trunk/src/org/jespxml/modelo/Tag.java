@@ -177,7 +177,6 @@ public class Tag {
     /**
      * Añade un atributo a la lista de atributos
      * @see Atributo
-     * @see xml.analizador.dom.modelo.Tag#addAtributo(xml.analizador.dom.modelo.Atributo) 
      * @param nombre
      * @param valor
      * @deprecated Método deprecado. En su reemplazo utilice 
@@ -354,7 +353,6 @@ public class Tag {
     /**
      * Elimina el primer tag que coincida con ese atributo
      * @param atr
-     * @return 
      */
     public void eliminarTagHijoByAtributo(Atributo atr) {
         for (Tag t : hijos) {
@@ -416,7 +414,7 @@ public class Tag {
     /**
      * 
      * @param nombre se llamará al método toString de ese objeto
-     * @return 
+     * @return el valor del atributo
      */
     public String getValorDeAtributo(Object nombre) throws AtributoNotFoundException {
         return getValorDeAtributo(nombre.toString());
@@ -492,7 +490,6 @@ public class Tag {
      * @param iconos un arreglo de iconos (icono tag, icono comentario, icono atributos e icono texto)
      * @param colorFondo el color de fondo del arbol JTree
      * @deprecated Método deprecado. Utilizar el método construirArbol(DatosArbolGUI datos)
-     * @see Tag#construirArbol(xml.analizador.dom.modelo.gui.DatosArbolGUI) 
      * @see JTree
      * @see ImageIcon
      * @see Color
@@ -562,7 +559,6 @@ public class Tag {
      * @param iconos
      * @param colorFondo
      * @deprecated Utilizar el método construirArbolSoloTags(DatosArbolGUI datos)
-     * @see Tag#construirArbolSoloTags(xml.analizador.dom.modelo.gui.DatosArbolGUI) 
      */
     public void construirArbolSoloTags(javax.swing.JTree arbol, ImageIcon[] iconos, Color colorFondo){
         DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("raiz");

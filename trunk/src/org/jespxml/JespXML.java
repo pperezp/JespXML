@@ -407,10 +407,10 @@ public class JespXML extends File {
     
     /**
      * Para poder serializar ese objeto 
-     * la case debe tener la anotacion
-     * @XmlRootElement ubicado en 
-     * @see javax.xml.bind.annotation.XmlRootElement.
-     * La clase debe tener un constructor vacío.
+     * la clase debe tener la anotacion
+     * XmlRootElement ubicado en 
+     * javax.xml.bind.annotation.XmlRootElement
+     * La clase debe tener un constructor vacío
      * Los atributos que quieras serializar deben tener
      * los metodos get o deben ser publicos
      * 
@@ -432,7 +432,7 @@ public class JespXML extends File {
     /**
      * 
      * @param clase La clase del objeto que quieres desSerializar
-     * @return
+     * @return un objeto
      * @throws JAXBException 
      */
     public Object leer(Class clase) throws JAXBException{
