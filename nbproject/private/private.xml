@@ -18,10 +18,6 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group/>
-        <group name="MIO">
-            <file>file:/C:/Users/pperezp/Dropbox/Programación/JAVA/Java%20SE/~PROYECTOS%20JAVA%20~/~SVN/jespxml/src/org/jespxml/JespXML.java</file>
-            <file>file:/C:/Users/pperezp/Dropbox/Programación/JAVA/Java%20SE/~PROYECTOS%20JAVA%20~/~SVN/jespxml/src/org/jespxml/modelo/Tag.java</file>
-            <file>file:/C:/Users/pperezp/Dropbox/Programación/JAVA/Java%20SE/~PROYECTOS%20JAVA%20~/~SVN/jespxml/src/org/jespxml/gui/CellRender.java</file>
-        </group>
+        <group name="MIO"/>
     </open-files>
 </project-private>
