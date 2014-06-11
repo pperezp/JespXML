@@ -258,7 +258,7 @@ public class JespXML extends File {
      * @throws FileNotFoundException
      * @throws TransformerException
      */
-    public void escribirXML(Tag tagRaiz) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public void escribirXML(Tag tagRaiz) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException, IOException {
         DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
         DocumentBuilder generador = fabrica.newDocumentBuilder();
         Document doc = generador.newDocument();
@@ -274,7 +274,8 @@ public class JespXML extends File {
         if (encoding != null) {
             t.setOutputProperty(OutputKeys.ENCODING, encoding.toString().replace("_", "-"));
         }
-
+        
+        crearCarpetasNecesarias();
         t.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(this)));
 
     }
@@ -361,7 +362,7 @@ public class JespXML extends File {
     }
 
     /*para crear archivos xml*/
-    public static void escribirXML(Tag tagRaiz, String pathname) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, String pathname) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException, IOException {
         JespXML a = new JespXML(pathname);
         a.escribirXML(tagRaiz);
     }
@@ -371,35 +372,35 @@ public class JespXML extends File {
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, InputStream stream) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, InputStream stream) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(stream);
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, File archivoXML) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, File archivoXML) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(archivoXML);
         a.escribirXML(tagRaiz);
     }
     
-    public static void escribirXML(Tag tagRaiz, String pathname, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, String pathname, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(pathname);
         a.setEncoding(encoding);
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, URI uri, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, URI uri, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(uri);
         a.setEncoding(encoding);
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, InputStream stream, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, InputStream stream, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(stream);
         a.setEncoding(encoding);
         a.escribirXML(tagRaiz);
     }
 
-    public static void escribirXML(Tag tagRaiz, File archivoXML, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException {
+    public static void escribirXML(Tag tagRaiz, File archivoXML, Encoding encoding) throws ParserConfigurationException, TransformerConfigurationException, FileNotFoundException, TransformerException , IOException{
         JespXML a = new JespXML(archivoXML);
         a.setEncoding(encoding);
         a.escribirXML(tagRaiz);
@@ -424,6 +425,7 @@ public class JespXML extends File {
         JAXBContext context = JAXBContext.newInstance(clase);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        crearCarpetasNecesarias();
         FileOutputStream fos = new FileOutputStream(this);
         marshaller.marshal(objeto, fos);
         fos.close();
@@ -439,5 +441,27 @@ public class JespXML extends File {
         JAXBContext context = JAXBContext.newInstance(clase);
         Unmarshaller unmarshaller = context.createUnmarshaller();
         return unmarshaller.unmarshal(this);
+    }
+
+    /**
+     * Método para crear carpetas necesarias,
+     * si el usuario no crea esas carpetas
+     */
+    private void crearCarpetasNecesarias() {
+        int indiceDelSeparador = 0;
+        
+        for(int i = this.getPath().length() - 1 ; i >= 0; i-- ){
+            if(String.valueOf(this.getPath().charAt(i)).equalsIgnoreCase(File.separator)){
+                indiceDelSeparador = i;
+                break;
+            }
+        }
+        
+        System.out.println(this.getPath().substring(0, indiceDelSeparador));
+        
+        if(!this.getPath().substring(0, indiceDelSeparador).isEmpty()){
+            File carpetas = new File(this.getPath().substring(0, indiceDelSeparador));
+            carpetas.mkdirs();
+        }
     }
 }
