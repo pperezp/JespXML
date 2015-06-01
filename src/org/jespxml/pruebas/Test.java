@@ -53,6 +53,8 @@ public class Test {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
