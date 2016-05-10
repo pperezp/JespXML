@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class Atributo {
 
-    private String nombre;
-    private String valor;
+    private String nombre;//nombre
+    private String valor;//valor
 
     /**
      * Constructor de Atributo
