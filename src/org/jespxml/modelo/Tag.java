@@ -622,6 +622,14 @@ public class Tag {
             this.contenido += contenido;
         }
     }
+    
+    /**
+     * Este método cambia totalmente el contenido del tag
+     * @param contenido el contenido como String
+     */
+    public void setContenido(String contenido){
+        this.contenido = contenido;
+    }
 
     /**
      * @return el nombre del tag
