@@ -1,4 +1,4 @@
-package org.jespxml;
+package cl.jespxml;
 
 import java.io.*;
 import java.net.URI;
@@ -9,12 +9,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.jespxml.modelo.Atributo;
-import org.jespxml.modelo.CData;
-import org.jespxml.modelo.Comentario;
-import org.jespxml.modelo.Encoding;
-import org.jespxml.modelo.InstruccionDeProcesamiento;
-import org.jespxml.modelo.Tag;
+import cl.jespxml.modelo.Atributo;
+import cl.jespxml.modelo.CData;
+import cl.jespxml.modelo.Comentario;
+import cl.jespxml.modelo.Encoding;
+import cl.jespxml.modelo.InstruccionDeProcesamiento;
+import cl.jespxml.modelo.Tag;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -318,7 +318,7 @@ public class JespXML extends File {
 
             //escribiendo Atributos del Tag
             for (Atributo atr : tagRaiz.getAtributos()) {
-                root.setAttribute(atr.getNombre(), atr.getValor());
+                root.setAttribute(atr.getNombre(), atr.getValor().toString());
             }
 
             //escribiendo hijos del Tag recursivamente

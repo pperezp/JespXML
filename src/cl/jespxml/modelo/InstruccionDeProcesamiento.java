@@ -1,20 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.jespxml.modelo;
+package cl.jespxml.modelo;
 
 /**
- * Clase para construir una instrucción de procesamiento. 
+ * Clase para construir una instrucción de procesamiento.
+ *
  * @author Patricio Pérez Pinto
  */
 public class InstruccionDeProcesamiento {
+
     private String target;
     private String data;
 
     /**
      * Constuir un objeto instrucción de procesamiento
-     * @param target es el nombre de la instrucción. 
+     *
+     * @param target es el nombre de la instrucción.
      * @param data el valor o datos de la instrucción.
      */
     public InstruccionDeProcesamiento(String target, String data) {
@@ -32,6 +31,7 @@ public class InstruccionDeProcesamiento {
 
     /**
      * Actualiza los datos por uno nuevo
+     *
      * @param data nuevos datos
      */
     public void setData(String data) {
@@ -48,11 +48,11 @@ public class InstruccionDeProcesamiento {
 
     /**
      * Actualiza el nombre o target de la instrucción de procesamiento
+     *
      * @param target el nuevo nombre o target de la instrucción de procesamiento
      */
     public void setTarget(String target) {
         this.target = target;
     }
-    
-    
+
 }

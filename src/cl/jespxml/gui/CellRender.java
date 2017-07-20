@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.jespxml.gui;
+package cl.jespxml.gui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -12,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
-import org.jespxml.modelo.Atributo;
-import org.jespxml.modelo.Comentario;
-import org.jespxml.modelo.Tag;
+import cl.jespxml.modelo.Atributo;
+import cl.jespxml.modelo.Comentario;
+import cl.jespxml.modelo.Tag;
 
 /**
  *

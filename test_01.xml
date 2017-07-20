@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Hola mundo JespXML</title>
+    </head>
+    <body onload="cargar()">
+        <h1>Hola Mundo desde JespXML!</h1>
+        <a href="http://www.google.cl">Click Aquí</a>
+    </body>
+</html>

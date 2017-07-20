@@ -1,33 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.jespxml.modelo;
+package cl.jespxml.modelo;
 
 import java.util.Objects;
 
 /**
- * Clase para construir un Atributo. Un atributo en XML es una propiedad en un Tag determinado.
- * Ejemplo: <tag atributo="valor"></tag>
+ * Clase para construir un Atributo. Un atributo en XML es una propiedad en un
+ * Tag determinado. Ejemplo: <tag atributo="valor"></tag>
+ *
  * @author Patricio Pérez Pinto
  */
 public class Atributo {
 
     private String nombre;//nombre
-    private String valor;//valor
+    private Object valor;//valor
 
     /**
      * Constructor de Atributo
+     *
      * @param nombre nombre del atributo
      * @param valor valor del atributo
      */
-    public Atributo(String nombre, String valor) {
+    public Atributo(String nombre, Object valor) {
         this.nombre = nombre;
         this.valor = valor;
     }
 
     /**
      * Constructor de Atributo. Sólo se construye con un nombre. Ej: atributo=""
+     *
      * @param nombre nombre del atributo
      */
     public Atributo(String nombre) {
@@ -45,6 +44,7 @@ public class Atributo {
 
     /**
      * cambia el actual nombre del Atributo
+     *
      * @param nombre El nuevo nombre del Atributo
      */
     public void setNombre(String nombre) {
@@ -55,15 +55,16 @@ public class Atributo {
      *
      * @return El valor del Atributo
      */
-    public String getValor() {
+    public Object getValor() {
         return valor;
     }
 
     /**
      * Reemplaza el valor actual del Atributo
+     *
      * @param valor El nuevo valor del Atributo
      */
-    public void setValor(String valor) {
+    public void setValor(Object valor) {
         this.valor = valor;
     }
 
@@ -71,12 +72,12 @@ public class Atributo {
     public String toString() {
         return this.nombre + "='" + this.valor + "'";
     }
-    
+
     @Override
-    public boolean equals(Object o){
-        if(o instanceof Atributo){
-            Atributo a = (Atributo)o;
-            if(this.getNombre().equalsIgnoreCase(a.getNombre()) && this.getValor().equalsIgnoreCase(a.getValor())){
+    public boolean equals(Object o) {
+        if (o instanceof Atributo) {
+            Atributo a = (Atributo) o;
+            if (this.getNombre().equalsIgnoreCase(a.getNombre()) && this.getValor().equals(a.getValor())) {
                 return true;
             }
         }

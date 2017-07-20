@@ -1,19 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.jespxml.modelo;
+package cl.jespxml.modelo;
 
 /**
- * Clase para construir objetos Comentario. Los comentarios son frases o palabras
- * a modo informativo para el programador que han de ser ignorados por el procesador.
+ * Clase para construir objetos Comentario. Los comentarios son frases o
+ * palabras a modo informativo para el programador que han de ser ignorados por
+ * el procesador.
+ *
  * @author Patricio Pérez Pinto
  */
 public class Comentario {
+
     private String comentario;
 
     /**
      * Construir un comentario
+     *
      * @param comentario comentario
      */
     public Comentario(String comentario) {
@@ -30,14 +30,15 @@ public class Comentario {
 
     /**
      * Actualiza el comentario
+     *
      * @param comentario nuevo comentario
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.comentario;
     }
 }

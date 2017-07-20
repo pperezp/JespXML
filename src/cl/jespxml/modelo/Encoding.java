@@ -1,35 +1,31 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.jespxml.modelo;
+package cl.jespxml.modelo;
 
 /**
  * Enum que guarda algunos tipos de encoding que soporta XML
+ *
  * @author Patricio Pérez Pinto
  */
 public enum Encoding {
     /**
      * Enconding UTF-8
      */
-    UTF_8, 
+    UTF_8,
     /**
      * Enconding UTF-16
      */
-    UTF_16, 
+    UTF_16,
     /**
      * Enconding ISO-10646-UCS-2
      */
-    ISO_10646_UCS_2, 
+    ISO_10646_UCS_2,
     /**
      * Enconding ISO-10646-UCS-4
      */
-    ISO_10646_UCS_4, 
+    ISO_10646_UCS_4,
     /**
      * Enconding ISO-8859-1
      */
-    ISO_8859_1 
-    ,
+    ISO_8859_1,
     /**
      * Enconding ISO-8859-2
      */
