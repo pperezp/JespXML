@@ -159,7 +159,7 @@ public class JespXML extends File {
                 is.setEncoding(this.encoding.toString().replaceAll("_", "-"));
                 doc = generador.parse(is);
             }
-        } else {//sin un encoding especifico
+        } else {//sin un encoding específico
             //si la lectura se va a realizar desde un stream sin encoding
             if (this.stream != null) {
                 doc = generador.parse(stream);
